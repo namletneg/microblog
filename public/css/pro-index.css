@@ -1,0 +1,40 @@
+body {
+  padding-top: 70px;
+}
+.control-group {
+  *zoom: 1;
+  padding-bottom: 10px;
+}
+.control-group:before,
+.control-group:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.control-group:after {
+  clear: both;
+}
+.control-label {
+  float: left;
+  padding-right: 10px;
+  width: 250px;
+}
+.controls {
+  float: left;
+}
+.controls .form-control {
+  width: 300px;
+}
+.form-actions {
+  border-top: #dedede solid 1px;
+  padding: 20px 0 20px 250px;
+  background-color: #eee;
+}
+.footer {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: #eee solid 1px;
+}
+.footer p {
+  text-align: center;
+}

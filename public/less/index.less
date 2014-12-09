@@ -1,0 +1,36 @@
+body{
+    padding-top: 70px;
+}
+.clearfix(){
+    *zoom: 1;
+    &:before,
+    &:after{
+        display: table;
+        content: "";
+        line-height: 0;
+    }
+    &:after{
+        clear: both;
+    }
+}
+//reg
+.control-group{
+    .clearfix;
+    padding-bottom: 10px;
+}
+.control-label{
+    float: left;
+    padding-right: 10px;
+    width: 250px;
+}
+.controls{
+    float: left;
+    .form-control{
+        width: 300px;
+    }
+}
+.form-actions{
+    border-top: #dedede solid 1px;
+    padding: 20px 0 20px 250px;
+    background-color: #eee;
+}
