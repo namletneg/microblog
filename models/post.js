@@ -4,9 +4,12 @@
 var mongodb = require('./db');
 
 function Post(username, post, time){
+    var date = new Date(),
+        formatTime = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
+            date.getHours() + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
     this.user = username;
     this.post = post;
-    this.time = time || new Date();
+    this.time = time || formatTime;
 }
 
 module.exports = Post;
@@ -28,11 +31,17 @@ Post.prototype.save = function save(callback){
                 return callback(err);
             }
             // 为user 属性添加索引
-            collection.ensureIndex('user');
+            /*collection.ensureIndex('user');
             // 写入 post文档
             collection.insert(post, {safe: true}, function(err, post){
                 mongodb.close();
                 callback(err, post);
+            });*/
+            collection.ensureIndex('user', function(err,indexname){
+                collection.insert(post, {safe: true}, function(err, post){
+                    mongodb.close();
+                    return callback(err, post);
+                });
             });
         });
     });
