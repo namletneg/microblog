@@ -7,7 +7,7 @@ function User(user) {
 
 module.exports = User;
 
-User.prototype.save = function save(callback) {
+/*User.prototype.save = function save(callback) {
 	var user = {
 		name: this.name,
 		password: this.password
@@ -35,6 +35,30 @@ User.prototype.save = function save(callback) {
 			});
 		});
 	});
+};*/
+
+User.prototype.save = function save(callback){
+    var user = {
+        name: this.name,
+        password: this.password
+    };
+    mongodb.open(function(err, db){
+        if(err){
+            return callback(err);
+        }
+        db.collection('users', function(err, collection){
+            if(err){
+                mongodb.close();
+                return callback(err);
+            }
+            collection.ensureIndex('name', {unique: true,safe:true},function(err,indexname){
+                collection.insert(user, {safe: true}, function(err, user){
+                    mongodb.close();
+                    return callback(err, user);
+                });
+            });
+        });
+    });
 };
 
 User.get = function get(username, callback) {
